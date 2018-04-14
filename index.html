@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Quote Of the day</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Akshay">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background: #f06d06;
+            padding: 20px;
+        }
+        div{
+            font-size: 30px;
+        }
+        
+        i{
+            font-size:60px;
+            color:red;
+        }
+ 
+    </style>
+</head>
+    <body>
+        <h1 class="text-center">Simple Quote of the day</h1>
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-sm-3">
+                    <div class="row justify-content-end" id="open-quote">
+                    </div> 
+                </div>
+                <div class="col-8 col-sm-6" id="quote-display">
+                    
+                </div>
+                <div class="col-sm-3">
+                    <div class="row justify-content-start" id="close-quote">
+                    </div>
+                </div>
+            </div>
+        </div>   
+        <script>
+            window.onload = async function() {
+                try {
+                    const result = await fetch(`https://quotes.rest/qod.json`);
+                    const data = await result.json();
+                        
+                    const quote = data.contents.quotes[0].quote;
+                    
+                    
+                    const openQuote = document.createElement("i");
+                    openQuote.setAttribute("class","fas fa-quote-left");
+                    document.getElementById("open-quote").appendChild(openQuote);
+                    
+                    const para = document.createElement("p");
+                    para.setAttribute("class","text-center");
+                    const content = document.createTextNode(quote);
+                    para.appendChild(content);
+                    document.getElementById("quote-display").appendChild(para);
+                    
+                    const closeQuote = document.createElement("i");
+                    closeQuote.setAttribute("class","fas fa-quote-right");
+                    document.getElementById("close-quote").appendChild(closeQuote);
+                    
+                        
+                } catch(error) {
+                    alert(error);
+                }
+            };
+        </script>
+
+    </body>
+</html>
